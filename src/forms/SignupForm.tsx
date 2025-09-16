@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { z } from "zod";
-import { signupSchema } from "../schemas/signup.schema";
-import { FormField } from "../components/FormField";
-import { FormButton } from "../components/FormButton";
+import { signupSchema } from "@/schemas/signup.schema";
+import { FormField } from "@/components/FormField";
+import { FormButton } from "@/components/FormButton";
 
 export type SignupFormData = z.infer<typeof signupSchema>;
 

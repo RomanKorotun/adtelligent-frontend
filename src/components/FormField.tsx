@@ -1,6 +1,6 @@
 import type { InputHTMLAttributes } from "react";
 import type { UseFormRegister } from "react-hook-form";
-import type { SignupFormData } from "../forms/SignupForm";
+import type { SignupFormData } from "@/forms/SignupForm";
 
 type FormFieldProps = {
   label: string;
