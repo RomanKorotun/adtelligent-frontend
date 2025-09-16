@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 
 const SignupPage = lazy(() => import("@/pages/SignupPage"));
 const SigninPage = lazy(() => import("@/pages/SigninPage"));
+const NewsListPage = lazy(() => import("@/pages/NewsListPage"));
 
 export const AppRoutes = () => {
   return (
@@ -12,6 +13,7 @@ export const AppRoutes = () => {
         <Route index element={<Navigate to="/signup" replace />} />
         <Route path="signup" element={<SignupPage />} />
         <Route path="signin" element={<SigninPage />} />
+        <Route path="news" element={<NewsListPage />} />
       </Route>
     </Routes>
   );
