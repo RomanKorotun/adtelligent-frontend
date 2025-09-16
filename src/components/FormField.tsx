@@ -1,22 +1,21 @@
 import type { InputHTMLAttributes } from "react";
-import type { UseFormRegister } from "react-hook-form";
-import type { SignupFormData } from "@/forms/SignupForm";
+import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
 
-type FormFieldProps = {
+type FormFieldProps<T extends FieldValues> = {
   label: string;
-  name: keyof SignupFormData;
+  name: Path<T>;
   type?: InputHTMLAttributes<HTMLInputElement>["type"];
-  register: UseFormRegister<SignupFormData>;
+  register: UseFormRegister<T>;
   error?: string;
 };
 
-export const FormField = ({
+export const FormField = <T extends FieldValues>({
   label,
   name,
   type = "text",
   register,
   error,
-}: FormFieldProps) => {
+}: FormFieldProps<T>) => {
   return (
     <div className="mb-6 relative">
       <label
@@ -36,9 +35,7 @@ export const FormField = ({
       />
 
       {error && (
-        <p className="absolute left-0 top-full mt-1 text-error text-sm">
-          {error}
-        </p>
+        <p className="absolute left-0 top-full text-error text-sm">{error}</p>
       )}
     </div>
   );
