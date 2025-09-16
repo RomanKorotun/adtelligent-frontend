@@ -6,6 +6,7 @@ import viteCompression from "vite-plugin-compression";
 import Inspect from "vite-plugin-inspect";
 import { visualizer } from "rollup-plugin-visualizer";
 import path from "path";
+import { imagetools } from "vite-imagetools";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,6 +19,7 @@ export default defineConfig({
       ext: ".br",
     }),
     Inspect(),
+    imagetools(),
   ],
   resolve: {
     alias: {
