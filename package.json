@@ -11,15 +11,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "add": "^2.0.6",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-hook-form": "^7.62.0",
+    "react-router-dom": "^7.9.1",
+    "yarn": "^1.22.22",
+    "zod": "^4.1.8"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.4",
+    "@types/node": "^24.5.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
     "rollup-plugin-visualizer": "^6.0.3",
+    "tailwindcss": "3",
     "terser": "^5.44.0",
     "typescript": "~5.8.3",
     "vite": "^7.1.2",

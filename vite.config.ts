@@ -5,6 +5,7 @@ import svgr from "vite-plugin-svgr";
 import viteCompression from "vite-plugin-compression";
 import Inspect from "vite-plugin-inspect";
 import { visualizer } from "rollup-plugin-visualizer";
+import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,6 +19,11 @@ export default defineConfig({
     }),
     Inspect(),
   ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
   build: {
     minify: "terser",
     terserOptions: {
