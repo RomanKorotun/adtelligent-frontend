@@ -5,6 +5,7 @@ import { Layout } from "@/components/Layout";
 const SignupPage = lazy(() => import("@/pages/SignupPage"));
 const SigninPage = lazy(() => import("@/pages/SigninPage"));
 const NewsListPage = lazy(() => import("@/pages/NewsListPage"));
+const NewsDetailsPage = lazy(() => import("@/pages/NewsDetailsPage"));
 
 export const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ export const AppRoutes = () => {
         <Route path="signup" element={<SignupPage />} />
         <Route path="signin" element={<SigninPage />} />
         <Route path="news" element={<NewsListPage />} />
+        <Route path="news/:id" element={<NewsDetailsPage />} />
       </Route>
     </Routes>
   );
