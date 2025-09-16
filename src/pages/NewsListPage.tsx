@@ -1,5 +1,6 @@
 import newsData from "@/news.json";
 import NewsCard from "@/components/NewsCard";
+import { Link } from "react-router-dom";
 
 const NewsListPage = () => {
   return (
@@ -9,12 +10,14 @@ const NewsListPage = () => {
       <ul className="flex flex-wrap gap-6 justify-start list-none p-0 m-0">
         {newsData.map((news) => (
           <li key={news.id} className="w-full sm:w-[48%] lg:w-[23%]">
-            <NewsCard
-              title={news.title}
-              thumbnailImage={news.thumbnailImage}
-              description={news.description}
-              publishedAt={news.publishedAt}
-            />
+            <Link to={`/news/${news.id}`}>
+              <NewsCard
+                title={news.title}
+                thumbnailImage={news.thumbnailImage}
+                description={news.description}
+                publishedAt={news.publishedAt}
+              />
+            </Link>
           </li>
         ))}
       </ul>
