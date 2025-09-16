@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-const SignupPage = lazy(() => import("../pages/SignupPage"));
+const SignupPage = lazy(() => import("@/pages/SignupPage"));
 
 export const AppRoutes = () => {
   return (
