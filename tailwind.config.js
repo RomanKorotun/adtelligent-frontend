@@ -2,6 +2,14 @@
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    container: {
+      center: true,
+      padding: "1rem",
+      screens: {
+        sm: "320px",
+        xl: "1280px",
+      },
+    },
     extend: {
       colors: {
         primary: "#191A15",
