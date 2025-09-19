@@ -6,6 +6,7 @@ const SignupPage = lazy(() => import("@/pages/SignupPage"));
 const SigninPage = lazy(() => import("@/pages/SigninPage"));
 const NewsListPage = lazy(() => import("@/pages/NewsListPage"));
 const NewsDetailsPage = lazy(() => import("@/pages/NewsDetailsPage"));
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
 export const AppRoutes = () => {
   return (
@@ -17,6 +18,7 @@ export const AppRoutes = () => {
         <Route path="news" element={<NewsListPage />} />
         <Route path="news/:id" element={<NewsDetailsPage />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
