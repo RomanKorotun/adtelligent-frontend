@@ -1,5 +1,5 @@
 import FormTitle from "@/components/FormTitle";
-import { SignupForm } from "@/forms/SignupForm";
+import { SignupForm } from "@/components/forms/SignupForm";
 
 const SignupPage = () => {
   return (
