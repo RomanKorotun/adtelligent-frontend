@@ -4,10 +4,13 @@ import type { z } from "zod";
 import { FormField } from "@/components/FormField";
 import { FormButton } from "@/components/FormButton";
 import { signinSchema } from "@/schemas/signin.schema";
+import { useLogin } from "@/api/auth";
 
 export type SigninFormData = z.infer<typeof signinSchema>;
 
 export const SigninForm = () => {
+  const { mutate } = useLogin();
+
   const {
     register,
     handleSubmit,
@@ -19,6 +22,7 @@ export const SigninForm = () => {
 
   const onSubmit = (data: SigninFormData) => {
     console.log("Дані логіну:", data);
+    mutate(data);
   };
 
   return (
