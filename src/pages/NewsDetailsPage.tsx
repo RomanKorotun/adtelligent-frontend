@@ -1,13 +1,27 @@
 import { useParams } from "react-router-dom";
-import newsData from "@/news.json";
+import { useSingleNews } from "@/api/news";
 
 const NewsDetailsPage = () => {
   const { id } = useParams();
-  const newsItem = newsData.find((item) => item.id === Number(id));
+  const { data: newsItem, isLoading, error } = useSingleNews(Number(id));
 
-  if (!newsItem) {
+  console.log(isLoading);
+
+  if (isLoading) {
     return (
-      <div className="container py-8 text-primary">Новину не знайдено ...</div>
+      <div className="container py-8">
+        <p className="text-lg text-secondary">Завантаження новини...</p>
+      </div>
+    );
+  }
+
+  if (error || !newsItem) {
+    return (
+      <div className="container py-8">
+        <p className="text-lg text-error">
+          Помилка! Спробуйте перезавантажити сторінку...
+        </p>
+      </div>
     );
   }
 
