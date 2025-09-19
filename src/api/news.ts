@@ -1,13 +1,13 @@
-import type { NewsItem } from "@/types/news";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import type { NewsItem } from "@/types/news";
 
 export const useNewsList = () =>
   useQuery({
     queryKey: ["news"],
     queryFn: async () => {
-      const res = await fetch("/news.json");
-      if (!res.ok) throw new Error("Помилка завантаження новин");
-      return res.json();
+      const { data } = await axios.get("/news.json");
+      return data;
     },
     staleTime: 0,
     refetchOnMount: true,
@@ -20,11 +20,8 @@ export const useSingleNews = (id: number) =>
   useQuery({
     queryKey: ["news", id],
     queryFn: async () => {
-      const res = await fetch("/news.json");
-      if (!res.ok) throw new Error("Помилка завантаження новин");
-      const data: NewsItem[] = await res.json();
-
-      const item = data.find((news) => news.id === id);
+      const { data } = await axios.get("/news.json");
+      const item = (data as NewsItem[]).find((news) => news.id === id);
       if (!item) throw new Error("Новину не знайдено");
       return item;
     },

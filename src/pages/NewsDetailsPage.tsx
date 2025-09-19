@@ -5,8 +5,6 @@ const NewsDetailsPage = () => {
   const { id } = useParams();
   const { data: newsItem, isLoading, error } = useSingleNews(Number(id));
 
-  console.log(isLoading);
-
   if (isLoading) {
     return (
       <div className="container py-8">
@@ -15,7 +13,17 @@ const NewsDetailsPage = () => {
     );
   }
 
-  if (error || !newsItem) {
+  if (error) {
+    if (error.message === "Новину не знайдено") {
+      return (
+        <div className="container py-8">
+          <p className="text-lg text-warning">
+            Новину не знайдено або вона була видалена.
+          </p>
+        </div>
+      );
+    }
+
     return (
       <div className="container py-8">
         <p className="text-lg text-error">
@@ -26,34 +34,38 @@ const NewsDetailsPage = () => {
   }
 
   return (
-    <div className="container py-8">
-      <div className="bg-light rounded-lg shadow-card overflow-hidden p-6 flex flex-col gap-6">
-        <div className="flex flex-col sm:flex-row gap-6">
-          <div className="sm:w-1/2 w-full">
-            <img
-              src={newsItem.mainImage}
-              alt={newsItem.title}
-              className="w-full h-auto object-cover rounded-lg"
-            />
-          </div>
+    <>
+      {newsItem && (
+        <div className="container py-8">
+          <div className="bg-light rounded-lg shadow-card overflow-hidden p-6 flex flex-col gap-6">
+            <div className="flex flex-col sm:flex-row gap-6">
+              <div className="sm:w-1/2 w-full">
+                <img
+                  src={newsItem.mainImage}
+                  alt={newsItem.title}
+                  className="w-full h-auto object-cover rounded-lg"
+                />
+              </div>
 
-          <div className="sm:w-1/2 w-full flex flex-col justify-center">
-            <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-4">
-              {newsItem.title}
-            </h1>
-            <p className="text-secondary text-sm italic">
-              {newsItem.publishedAt}
-            </p>
+              <div className="sm:w-1/2 w-full flex flex-col justify-center">
+                <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-4">
+                  {newsItem.title}
+                </h1>
+                <p className="text-secondary text-sm italic">
+                  {newsItem.publishedAt}
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-primary text-base leading-relaxed whitespace-pre-line">
+                {newsItem.description}
+              </p>
+            </div>
           </div>
         </div>
-
-        <div>
-          <p className="text-primary text-base leading-relaxed whitespace-pre-line">
-            {newsItem.description}
-          </p>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
