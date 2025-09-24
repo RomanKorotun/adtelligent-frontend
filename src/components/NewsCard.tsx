@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import type { NewsItem } from "@shared-types/news";
-import { formatDateTime } from "@/utils/formatDate";
+import { formatDateTime } from "@utils/formatDate";
 
 interface NewsCardProps {
   news: NewsItem;

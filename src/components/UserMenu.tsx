@@ -1,6 +1,6 @@
-import { useSignout } from "@/api/auth";
-import { useAuthStore } from "@/store/authStore";
 import { useNavigate } from "react-router-dom";
+import { useSignout } from "@api/auth";
+import { useAuthStore } from "@store/authStore";
 
 export const UserMenu = () => {
   const userName = useAuthStore((state) => state.userName);

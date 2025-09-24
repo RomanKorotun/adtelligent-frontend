@@ -1,8 +1,8 @@
+import { useEffect } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import type { LoginPayload, SignupPayload } from "@shared-types/auth";
-import { useAuthStore } from "@/store/authStore";
+import { useAuthStore } from "@src/store/authStore";
 import axiosInstance from "@lib/axios";
-import { useEffect } from "react";
 
 export const useSignup = () => {
   const login = useAuthStore.getState().login;
@@ -56,13 +56,11 @@ export const useCurrentUser = () => {
     },
     retry: false,
     staleTime: 0,
+    select: (data) => {
+      current(data.username);
+      return data;
+    },
   });
-
-  useEffect(() => {
-    if (query.data) {
-      current(query.data.username);
-    }
-  }, [query.data, current]);
 
   return query;
 };

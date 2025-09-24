@@ -26,7 +26,7 @@
     /* Absolute imports */
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"],
+      "@src/*": ["*"],
       "@api/*": ["api/*"],
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
@@ -35,7 +35,9 @@
       "@shared-types/*": ["types/*"],
       "@constants/*": ["constants/*"],
       "@config/*": ["config/*"],
-      "@lib/*": ["lib/*"]
+      "@lib/*": ["lib/*"],
+      "@store/*": ["store/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": ["src"]

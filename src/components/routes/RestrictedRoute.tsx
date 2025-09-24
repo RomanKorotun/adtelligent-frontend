@@ -1,6 +1,6 @@
-import { useAuthStore } from "@/store/authStore";
 import type { FC, ReactNode } from "react";
 import { Navigate } from "react-router-dom";
+import { useAuthStore } from "@src/store/authStore";
 
 interface IRestrictedRouteProps {
   redirectTo: string;

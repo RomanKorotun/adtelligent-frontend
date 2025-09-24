@@ -1,7 +1,7 @@
 import { useParams, NavLink } from "react-router-dom";
 import { useSingleNews } from "@api/news";
-import StatusMessage from "@/components/StatusMessage";
-import { formatDateTime } from "@/utils/formatDate";
+import StatusMessage from "@components/StatusMessage";
+import { formatDateTime } from "@utils/formatDate";
 
 const NewsDetailsPage = () => {
   const { id } = useParams();

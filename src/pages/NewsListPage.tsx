@@ -1,7 +1,7 @@
 import NewsCard from "@components/NewsCard";
 import { useNewsList } from "@api/news";
 import type { NewsItem } from "@shared-types/news";
-import StatusMessage from "@/components/StatusMessage";
+import StatusMessage from "@components/StatusMessage";
 
 const NewsListPage = () => {
   const { data, isLoading, error } = useNewsList();

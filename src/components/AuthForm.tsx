@@ -1,14 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField } from "@components/FormField";
 import { FormButton } from "@components/FormButton";
 import { useLogin, useSignup } from "@api/auth";
 import { signinSchema } from "@schemas/signin.schema";
 import { signupSchema } from "@schemas/signup.schema";
-import type { z } from "zod";
-import { fieldConfig } from "@/config/fieldConfig";
-import { AuthType } from "@/types/auth";
-import { useNavigate } from "react-router-dom";
+import { fieldConfig } from "@config/fieldConfig";
+import { AuthType } from "@shared-types/auth";
 
 type AuthType = "signup" | "signin";
 type SigninFormData = z.infer<typeof signinSchema>;

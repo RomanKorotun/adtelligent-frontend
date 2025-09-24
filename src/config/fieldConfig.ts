@@ -1,4 +1,4 @@
-import { AuthType } from "@/types/auth";
+import { AuthType } from "@shared-types/auth";
 
 export const fieldConfig = [
   {

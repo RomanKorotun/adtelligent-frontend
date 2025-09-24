@@ -1,6 +1,6 @@
-import { useAuthStore } from "@/store/authStore";
-import { AuthNav } from "@/components/AuthNav";
-import { UserMenu } from "@/components/UserMenu";
+import { useAuthStore } from "@store/authStore";
+import { AuthNav } from "@components/AuthNav";
+import { UserMenu } from "@components/UserMenu";
 
 export const Header = () => {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);

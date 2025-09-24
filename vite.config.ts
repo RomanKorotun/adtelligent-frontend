@@ -23,7 +23,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      "@src": path.resolve(__dirname, "src"),
       "@api": path.resolve(__dirname, "src/api"),
       "@components": path.resolve(__dirname, "src/components"),
       "@pages": path.resolve(__dirname, "src/pages"),
@@ -33,6 +33,8 @@ export default defineConfig({
       "@constants": path.resolve(__dirname, "src/constants"),
       "@config": path.resolve(__dirname, "src/config"),
       "@lib": path.resolve(__dirname, "src/lib"),
+      "@store": path.resolve(__dirname, "src/store"),
+      "@utils": path.resolve(__dirname, "src/utils"),
     },
   },
   build: {

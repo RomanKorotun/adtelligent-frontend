@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import FormTitle from "@components/FormTitle";
-import { AuthForm } from "@/components/AuthForm";
-import { AuthType } from "@/types/auth";
+import { AuthForm } from "@components/AuthForm";
+import { AuthType } from "@shared-types/auth";
 
 const AuthPage = () => {
   const location = useLocation();

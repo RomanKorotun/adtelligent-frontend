@@ -1,5 +1,5 @@
 import { AppRoutes } from "@routes/appRoutes";
-import { useCurrentUser } from "./api/auth";
+import { useCurrentUser } from "@api/auth";
 
 const App = () => {
   const { isLoading } = useCurrentUser();
