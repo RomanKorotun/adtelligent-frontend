@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import type { LoginPayload, SignupPayload } from "@shared-types/auth";
 import { useAuthStore } from "@src/store/authStore";
