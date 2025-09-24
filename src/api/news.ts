@@ -1,34 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import type { NewsItem } from "@/types/news";
+import axiosInstance from "@/lib/axios";
 
 export const useNewsList = () =>
   useQuery({
     queryKey: ["news"],
     queryFn: async () => {
-      const { data } = await axios.get("/news.json");
+      const { data } = await axiosInstance.get(
+        "/feed?url=https://rss.unian.net/site/news_ukr.rss&force=1"
+      );
       return data;
     },
-    staleTime: 0,
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-    gcTime: 0,
     retry: 0,
   });
 
-export const useSingleNews = (id: number) =>
+export const useSingleNews = (id: string | undefined) =>
   useQuery({
     queryKey: ["news", id],
     queryFn: async () => {
-      const { data } = await axios.get("/news.json");
-      const item = (data as NewsItem[]).find((news) => news.id === id);
-      if (!item) throw new Error("Новину не знайдено");
-      return item;
+      const { data } = await axiosInstance.get(`/article/${id}/parse`);
+      return data;
     },
-    enabled: !!id,
-    staleTime: 0,
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-    gcTime: 0,
     retry: 0,
   });

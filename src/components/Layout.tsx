@@ -1,16 +1,18 @@
-import { Outlet } from "react-router-dom";
-import { Header } from "./Header";
 import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import { Header } from "@components/Header";
+import { Footer } from "./Footer";
 
 export const Layout = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <Suspense>
-        <main>
+      <main className="flex-1 flex items-center justify-center">
+        <Suspense>
           <Outlet />
-        </main>
-      </Suspense>
-    </>
+        </Suspense>
+      </main>
+      <Footer />
+    </div>
   );
 };

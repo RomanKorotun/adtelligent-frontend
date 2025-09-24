@@ -6,7 +6,7 @@ import viteCompression from "vite-plugin-compression";
 import Inspect from "vite-plugin-inspect";
 import { visualizer } from "rollup-plugin-visualizer";
 import path from "path";
-import { imagetools } from "vite-imagetools";
+import virtualModules from "./src/plugins/virtual_modules.plugin";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -19,11 +19,20 @@ export default defineConfig({
       ext: ".br",
     }),
     Inspect(),
-    imagetools(),
+    virtualModules(),
   ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
+      "@api": path.resolve(__dirname, "src/api"),
+      "@components": path.resolve(__dirname, "src/components"),
+      "@pages": path.resolve(__dirname, "src/pages"),
+      "@routes": path.resolve(__dirname, "src/routes"),
+      "@schemas": path.resolve(__dirname, "src/schemas"),
+      "@shared-types": path.resolve(__dirname, "src/types"),
+      "@constants": path.resolve(__dirname, "src/constants"),
+      "@config": path.resolve(__dirname, "src/config"),
+      "@lib": path.resolve(__dirname, "src/lib"),
     },
   },
   build: {
