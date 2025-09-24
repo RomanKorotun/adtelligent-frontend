@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { passwordRegex } from "@/utils/regex";
+import { passwordRegex } from "@constants/regex";
 
 export const signinSchema = z.object({
   email: z.email({ message: "Введіть коректний email" }),

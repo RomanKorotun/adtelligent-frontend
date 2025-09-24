@@ -26,7 +26,18 @@
     /* Absolute imports */
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"]
+      "@src/*": ["*"],
+      "@api/*": ["api/*"],
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
+      "@routes/*": ["routes/*"],
+      "@schemas/*": ["schemas/*"],
+      "@shared-types/*": ["types/*"],
+      "@constants/*": ["constants/*"],
+      "@config/*": ["config/*"],
+      "@lib/*": ["lib/*"],
+      "@store/*": ["store/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": ["src"]

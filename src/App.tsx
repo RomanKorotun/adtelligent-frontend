@@ -1,6 +1,10 @@
-import { AppRoutes } from "@/routes";
+import { AppRoutes } from "@routes/appRoutes";
+import { useCurrentUser } from "@api/auth";
 
 const App = () => {
-  return <AppRoutes />;
+  const { isLoading } = useCurrentUser();
+
+  return isLoading ? <div>Refreshing user...</div> : <AppRoutes />;
 };
+
 export default App;

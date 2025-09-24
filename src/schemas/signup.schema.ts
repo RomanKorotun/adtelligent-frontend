@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { passwordRegex } from "@/utils/regex";
+import { passwordRegex } from "@constants/regex";
 
 export const signupSchema = z.object({
   username: z
