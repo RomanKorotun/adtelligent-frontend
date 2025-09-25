@@ -12,15 +12,16 @@ export function initPrebidAds() {
 
   window.__PREBID_LOGS__ = window.__PREBID_LOGS__ || [];
 
-  pbjs.que.push(() => {
-    const events = [
-      "auctionInit",
-      "bidRequested",
-      "bidResponse",
-      "bidTimeout",
-      "auctionEnd",
-    ];
+  const events = [
+    "auctionInit",
+    "bidRequested",
+    "bidResponse",
+    "bidWon",
+    "bidTimeout",
+    "auctionEnd",
+  ];
 
+  pbjs.que.push(() => {
     events.forEach((event) => {
       pbjs.onEvent(event, (data) => {
         window.__PREBID_LOGS__.push({ event, data: data || null });
@@ -34,6 +35,8 @@ export function initPrebidAds() {
     );
 
     frames.forEach((iframe) => {
+      iframe.setAttribute("scrolling", "no");
+
       if (!iframe.dataset.prebidRendered) {
         const adUnit = { ...adUnitTemplate, code: iframe.id };
 
@@ -63,9 +66,11 @@ export function initPrebidAds() {
                 });
               }
 
-              if (typeof window.PrebidLogsPage === "function") {
-                window.PrebidLogsPage();
-              }
+              setTimeout(() => {
+                if (typeof window.PrebidLogsPage === "function") {
+                  window.PrebidLogsPage();
+                }
+              }, 300);
             },
           });
         });
