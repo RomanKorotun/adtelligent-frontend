@@ -10,7 +10,7 @@ const NewsListPage = () => {
   const hasNews = Array.isArray(data) && data.length > 0;
 
   return (
-    <div className="container py-8">
+    <div className="container py-8 relative">
       <StatusMessage
         isLoading={isLoading}
         error={error}
@@ -21,6 +21,7 @@ const NewsListPage = () => {
           empty: "Новини не знайдено.",
         }}
       />
+
       {hasNews && (
         <>
           <h1 className="text-2xl font-bold text-primary mb-6">
@@ -34,6 +35,13 @@ const NewsListPage = () => {
               </li>
             ))}
           </ul>
+
+          <iframe
+            id="ad-frame-newslist"
+            title="Реклама"
+            scrolling="no"
+            className="fixed top-[120px] left-0 z-50 block w-[300px] h-[250px] m-0 p-0 border-none overflow-hidden bg-transparent"
+          />
         </>
       )}
     </div>
