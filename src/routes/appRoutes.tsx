@@ -8,6 +8,7 @@ const AuthPage = lazy(() => import("@pages/AuthPage"));
 const NewsListPage = lazy(() => import("@pages/NewsListPage"));
 const NewsDetailsPage = lazy(() => import("@pages/NewsDetailsPage"));
 const NotFoundPage = lazy(() => import("@pages/NotFoundPage"));
+const LineItemFormPage = lazy(() => import("@pages/LineItemFormPage"));
 
 export const AppRoutes = () => {
   return (
@@ -37,6 +38,12 @@ export const AppRoutes = () => {
           }
         />
       </Route>
+      <Route
+        path="form"
+        element={
+          <PrivateRoute redirectTo="/signin" page={<LineItemFormPage />} />
+        }
+      />
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
