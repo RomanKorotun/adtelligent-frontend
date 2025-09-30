@@ -4,6 +4,14 @@ export function initPrebidAds() {
     bids: [
       { bidder: "adtelligent", params: { aid: 350975 } },
       { bidder: "bidmatic", params: { source: 886409 } },
+      {
+        bidder: "korotun",
+        params: {
+          korotunId: 123456,
+          cpm: 10,
+          currency: "USD",
+        },
+      },
     ],
   };
 
