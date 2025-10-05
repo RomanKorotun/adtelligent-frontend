@@ -1,34 +1,70 @@
 import { useState } from "react";
-import { FilterButton } from "@components/FilterButton";
-import { filtersConfig, type Filter } from "@config/filtersConfig";
+import { FilterGroup } from "@components/FilterGroup";
+import { ExportButtons } from "@components/ExportButtons";
+import { ViewControls } from "@components/ViewControls";
 import { downloadStatisticsFile } from "@utils/statisticsHelpers";
+import {
+  useFilterQuery,
+  useSavedViewsQuery,
+  useSavedViewDetail,
+} from "@api/statistics";
+import { useToggleFilter } from "@hooks/useToggleFilter";
+import { useViewSelection } from "@hooks/useViewSelection";
+import { useSaveView } from "@hooks/useSaveView";
 
 type Props = {
   onApply: (data: { date: string; filters: Record<string, string[]> }) => void;
+  filterName: string | null;
 };
 
-export const FiltersPanel = ({ onApply }: Props) => {
+export const FiltersPanel = ({ onApply, filterName }: Props) => {
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, string[]>
   >({});
-  const [date, setDate] = useState<string>(
-    new Date().toISOString().split("T")[0]
+  const [initialViewFilters, setInitialViewFilters] = useState<
+    Record<string, string[]>
+  >({});
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [activeViewId, setActiveViewId] = useState("");
+  const [activeViewName, setActiveViewName] = useState<string | null>(null);
+  const [newViewName, setNewViewName] = useState("");
+
+  const { data: filtersData } = useFilterQuery(filterName);
+  const { data: savedViews } = useSavedViewsQuery();
+  const { data: selectedViewDetail } = useSavedViewDetail(
+    activeViewName && activeViewName !== "default" ? activeViewName : null
   );
 
-  const toggleFilter = (name: string, value: string) => {
-    setSelectedFilters((prev) => {
-      const prevValues = prev[name] || [];
-      if (prevValues.includes(value)) {
-        const newValues = prevValues.filter((v) => v !== value);
-        if (!newValues.length) {
-          const { [name]: _, ...rest } = prev;
-          return rest;
-        }
-        return { ...prev, [name]: newValues };
-      }
-      return { ...prev, [name]: [...prevValues, value] };
-    });
+  const resetView = () => {
+    setActiveViewId("");
+    setActiveViewName("default");
   };
+
+  const toggleFilter = useToggleFilter(
+    selectedFilters,
+    setSelectedFilters,
+    initialViewFilters,
+    resetView
+  );
+
+  const { handleSelectView } = useViewSelection(
+    selectedViewDetail,
+    savedViews,
+    setSelectedFilters,
+    setInitialViewFilters,
+    setActiveViewId,
+    setActiveViewName
+  );
+
+  const { saveView } = useSaveView();
+
+  const handleSaveView = () => {
+    saveView(newViewName, selectedFilters, () => setNewViewName(""));
+  };
+
+  if (!filtersData) return <p>Фільтри не знайдено</p>;
+
+  const disabled = Object.keys(selectedFilters).length === 0;
 
   return (
     <div className="space-y-6">
@@ -39,36 +75,29 @@ export const FiltersPanel = ({ onApply }: Props) => {
           onChange={(e) => setDate(e.target.value)}
           className="border rounded px-2 py-1 text-sm"
         />
-        <div className="ml-auto flex gap-3">
-          <button
-            onClick={() => downloadStatisticsFile("csv", date, selectedFilters)}
-            className="px-4 py-2 bg-green-500 text-white rounded shadow hover:bg-green-600 transition font-medium"
-          >
-            Завантажити CSV
-          </button>
-          <button
-            onClick={() =>
-              downloadStatisticsFile("xlsx", date, selectedFilters)
-            }
-            className="px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 transition font-medium"
-          >
-            Завантажити Excel
-          </button>
-        </div>
+        <ExportButtons
+          onDownload={(format) =>
+            downloadStatisticsFile(format, date, selectedFilters)
+          }
+        />
       </div>
 
-      <div className="flex gap-3 flex-wrap">
-        {filtersConfig.map((f: Filter) => (
-          <FilterButton
-            key={f.name}
-            filter={f}
-            isActive={selectedFilters[f.name]?.includes(f.value)}
-            onClick={() => toggleFilter(f.name, f.value)}
-          />
-        ))}
-      </div>
+      <FilterGroup
+        filters={filtersData.filters}
+        selectedFilters={selectedFilters}
+        onToggle={toggleFilter}
+      />
 
-      <div className="flex justify-end">
+      <div className="flex justify-between items-center mt-4">
+        <ViewControls
+          newViewName={newViewName}
+          onChangeViewName={setNewViewName}
+          onSaveView={handleSaveView}
+          disabled={disabled}
+          activeViewId={activeViewId}
+          savedViews={savedViews}
+          onSelectView={handleSelectView}
+        />
         <button
           onClick={() => onApply({ date, filters: selectedFilters })}
           className="px-6 py-3 bg-primary text-light rounded shadow hover:bg-primary/90 transition font-medium"

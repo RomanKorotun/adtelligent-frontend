@@ -22,7 +22,7 @@ const StatisticsPage = () => {
       <h1 className="text-3xl font-bold text-primary">Статистика</h1>
 
       <div className="bg-light rounded-lg shadow-card p-6">
-        <FiltersPanel onApply={handleApplyFilters} />
+        <FiltersPanel onApply={handleApplyFilters} filterName="default" />
       </div>
 
       <div className="shadow-card max-h-[500px]">

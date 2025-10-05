@@ -35,6 +35,7 @@ export default defineConfig({
       "@lib": path.resolve(__dirname, "src/lib"),
       "@store": path.resolve(__dirname, "src/store"),
       "@utils": path.resolve(__dirname, "src/utils"),
+      "@hooks": path.resolve(__dirname, "src/hooks"),
     },
   },
   build: {

@@ -1,6 +1,6 @@
 export function sendStatToServer(payload) {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const url = `${backendUrl}/statistics`;
+  const url = `${backendUrl}/statCollector`;
   const body = JSON.stringify(payload);
   if (navigator.sendBeacon) {
     const blob = new Blob([body], {

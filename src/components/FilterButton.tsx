@@ -1,7 +1,7 @@
-import type { Filter } from "@config/filtersConfig";
+import type { FilterItem } from "@shared-types/statistics";
 
 type Props = {
-  filter: Filter;
+  filter: FilterItem;
   isActive: boolean;
   onClick: () => void;
 };
