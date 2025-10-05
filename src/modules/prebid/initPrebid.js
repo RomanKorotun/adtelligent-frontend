@@ -33,6 +33,11 @@ export function initPrebidAds() {
     events.forEach((event) => {
       pbjs.onEvent(event, (data) => {
         window.__PREBID_LOGS__.push({ event, data: data || null });
+        window.dispatchEvent(
+          new CustomEvent("prebid-event", {
+            detail: { event, data },
+          })
+        );
       });
     });
   });
@@ -65,6 +70,15 @@ export function initPrebidAds() {
                   event: "rendered",
                   data: { code: adUnit.code, bid: bids[0] },
                 });
+
+                window.dispatchEvent(
+                  new CustomEvent("prebid-event", {
+                    detail: {
+                      event: "rendered",
+                      data: { code: adUnit.code, bid: bids[0] },
+                    },
+                  })
+                );
 
                 iframe.dataset.prebidRendered = "true";
               } else {

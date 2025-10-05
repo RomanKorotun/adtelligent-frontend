@@ -37,7 +37,8 @@
       "@config/*": ["config/*"],
       "@lib/*": ["lib/*"],
       "@store/*": ["store/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@hooks/*": ["hooks/*"]
     }
   },
   "include": ["src"]
