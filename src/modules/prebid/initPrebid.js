@@ -6,7 +6,7 @@ export function initPrebidAds() {
         { bidder: "bidmatic", params: { source: 886409 } },
         {
           bidder: "korotun",
-          params: { korotunId: 123456, cpm: 0.18, currency: "USD" },
+          params: { korotunId: 123456, cpm: 0.06, currency: "USD" },
         },
       ],
     },
