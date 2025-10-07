@@ -19,19 +19,33 @@ type Props = {
   data: Row[];
 };
 
+const currencyKeys = ["maxCpm", "revenue", "revenuePerSlot", "ECPM"];
+const percentKeys = ["noBid", "fillRate"];
+
 export const StatisticsGrid: React.FC<Props> = ({ data }) => {
   if (!data || data.length === 0) {
     return <p className="text-secondary p-4">Немає даних</p>;
   }
 
-  const initialColumns: Column[] = Object.keys(data[0]).map((key) => ({
-    key,
-    label: /^[A-Z]+$/.test(key)
+  const initialColumns: Column[] = Object.keys(data[0]).map((key) => {
+    const label = /^[A-Z]+$/.test(key)
       ? key
       : key
           .replace(/([A-Z])/g, " $1")
-          .replace(/^./, (str) => str.toUpperCase()),
-  }));
+          .replace(/^./, (str) => str.toUpperCase());
+
+    let finalLabel = label;
+    if (currencyKeys.includes(key)) {
+      finalLabel += " ($)";
+    } else if (percentKeys.includes(key)) {
+      finalLabel += " (%)";
+    }
+
+    return {
+      key,
+      label: finalLabel,
+    };
+  });
 
   const [columns, setColumns] = useState<Column[]>(initialColumns);
   const [columnWidths, setColumnWidths] = useState<number[]>(
