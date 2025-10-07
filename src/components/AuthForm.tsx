@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
@@ -9,15 +10,20 @@ import { signinSchema } from "@schemas/signin.schema";
 import { signupSchema } from "@schemas/signup.schema";
 import { fieldConfig } from "@config/fieldConfig";
 import { AuthType } from "@shared-types/auth";
+import { getAuthErrorMessage } from "@src/utils/errorHandler";
 
 type AuthType = "signup" | "signin";
 type SigninFormData = z.infer<typeof signinSchema>;
 type SignupFormData = z.infer<typeof signupSchema>;
 
 export const AuthForm = ({ type }: { type: AuthType }) => {
+  const [serverError, setServerError] = useState<string | null>(null);
   const navigate = useNavigate();
-
   const isLogin = type === AuthType.SIGNIN;
+
+  useEffect(() => {
+    setServerError(null);
+  }, [type]);
 
   const {
     register,
@@ -32,13 +38,21 @@ export const AuthForm = ({ type }: { type: AuthType }) => {
   const { mutate: signupMutate } = useSignup();
 
   const onSubmit = (data: SigninFormData | SignupFormData) => {
+    setServerError(null);
+
+    const handleError = (error: unknown) => {
+      setServerError(getAuthErrorMessage(error));
+    };
+
     if (isLogin) {
       loginMutate(data as SigninFormData, {
         onSuccess: () => navigate("/news"),
+        onError: handleError,
       });
     } else {
       signupMutate(data as SignupFormData, {
         onSuccess: () => navigate("/news"),
+        onError: handleError,
       });
     }
   };
@@ -51,7 +65,7 @@ export const AuthForm = ({ type }: { type: AuthType }) => {
     }));
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="relative">
       {fields.map(({ name, label, type }) => (
         <FormField
           key={name}
@@ -62,7 +76,16 @@ export const AuthForm = ({ type }: { type: AuthType }) => {
           error={errors[name]?.message}
         />
       ))}
-      <FormButton>Submit</FormButton>
+
+      <div className="relative mt-6">
+        <FormButton>Submit</FormButton>
+
+        {serverError && (
+          <p className="absolute bottom-[-1.25rem] left-0 w-full text-error text-sm font-medium text-center">
+            {serverError}
+          </p>
+        )}
+      </div>
     </form>
   );
 };
