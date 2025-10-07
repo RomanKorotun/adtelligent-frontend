@@ -58,7 +58,7 @@ const NewsDetailsPage = () => {
           <iframe
             id="ad-frame-newsdetails"
             title="Реклама"
-            className="fixed top-[120px] left-0 z-50 block w-[300px] h-[250px] m-0 p-0 border-none overflow-hidden bg-transparent"
+            className="fixed top-[120px] left-5 z-50 block w-[300px] h-[250px] m-0 p-0 border-none overflow-hidden bg-transparent"
           />
         </div>
       )}

@@ -6,10 +6,11 @@ export function initPrebidAds() {
         { bidder: "bidmatic", params: { source: 886409 } },
         {
           bidder: "korotun",
-          params: { korotunId: 123456, cpm: 0.06, currency: "USD" },
+          params: { korotunId: 123456, cpm: 0.05, currency: "USD" },
         },
       ],
     },
+
     "ad-frame-newslist": {
       mediaTypes: { banner: { sizes: [[300, 250]] } },
       bids: [
@@ -20,6 +21,7 @@ export function initPrebidAds() {
         },
       ],
     },
+
     "ad-frame-newsdetails": {
       mediaTypes: { banner: { sizes: [[300, 250]] } },
       bids: [
