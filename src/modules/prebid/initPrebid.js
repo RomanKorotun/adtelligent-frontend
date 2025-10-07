@@ -1,23 +1,36 @@
 export function initPrebidAds() {
-  const adUnitTemplate = {
-    mediaTypes: { banner: { sizes: [[300, 250]] } },
-    bids: [
-      { bidder: "adtelligent", params: { aid: 350975 } },
-      { bidder: "bidmatic", params: { source: 886409 } },
-      {
-        bidder: "korotun",
-        params: {
-          korotunId: 123456,
-          cpm: 10,
-          currency: "USD",
+  const adUnitTemplates = {
+    "ad-frame-auth": {
+      mediaTypes: { banner: { sizes: [[300, 250]] } },
+      bids: [
+        { bidder: "bidmatic", params: { source: 886409 } },
+        {
+          bidder: "korotun",
+          params: { korotunId: 123456, cpm: 0.18, currency: "USD" },
         },
-      },
-    ],
+      ],
+    },
+    "ad-frame-newslist": {
+      mediaTypes: { banner: { sizes: [[300, 250]] } },
+      bids: [
+        { bidder: "adtelligent", params: { aid: 350975 } },
+        {
+          bidder: "korotun",
+          params: { korotunId: 123456, cpm: 10, currency: "USD" },
+        },
+      ],
+    },
+    "ad-frame-newsdetails": {
+      mediaTypes: { banner: { sizes: [[300, 250]] } },
+      bids: [
+        { bidder: "adtelligent", params: { aid: 350975 } },
+        { bidder: "bidmatic", params: { source: 886409 } },
+      ],
+    },
   };
 
   window.pbjs = window.pbjs || {};
   pbjs.que = pbjs.que || [];
-
   window.__PREBID_LOGS__ = window.__PREBID_LOGS__ || [];
 
   const events = [
@@ -50,8 +63,11 @@ export function initPrebidAds() {
     frames.forEach((iframe) => {
       iframe.setAttribute("scrolling", "no");
 
+      const template = adUnitTemplates[iframe.id];
+      if (!template) return;
+
       if (!iframe.dataset.prebidRendered) {
-        const adUnit = { ...adUnitTemplate, code: iframe.id };
+        const adUnit = { ...template, code: iframe.id };
 
         pbjs.que.push(() => {
           pbjs.addAdUnits([adUnit]);
