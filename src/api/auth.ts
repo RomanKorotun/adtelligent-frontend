@@ -54,7 +54,7 @@ export const useCurrentUser = () => {
       return data;
     },
     retry: false,
-    staleTime: 0,
+    staleTime: Infinity,
     select: (data) => {
       current(data.username);
       return data;

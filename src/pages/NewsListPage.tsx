@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import NewsCard from "@components/NewsCard";
 import { useNewsList } from "@api/news";
 import type { NewsItem } from "@shared-types/news";
@@ -5,9 +6,22 @@ import StatusMessage from "@components/StatusMessage";
 
 const NewsListPage = () => {
   const { data, isLoading, error } = useNewsList();
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   const isEmpty = Array.isArray(data) && data.length === 0;
   const hasNews = Array.isArray(data) && data.length > 0;
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollButton(window.scrollY > 200);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="container py-8 relative">
@@ -36,10 +50,20 @@ const NewsListPage = () => {
             ))}
           </ul>
 
+          {showScrollButton && (
+            <button
+              onClick={scrollToTop}
+              className="fixed bottom-24 right-6 z-40 w-14 h-14 rounded-full bg-focus text-light text-xl font-medium hover:bg-secondary transition-colors shadow-cardHover flex items-center justify-center"
+              aria-label="Повернутись нагору"
+            >
+              ↑
+            </button>
+          )}
+
           <iframe
             id="ad-frame-newslist"
             title="Реклама"
-            className="fixed top-[120px] left-0 z-50 block w-[300px] h-[250px] m-0 p-0 border-none overflow-hidden bg-transparent"
+            className="fixed top-[120px] left-0 z-30 block w-[300px] h-[250px] m-0 p-0 border-none overflow-hidden bg-transparent"
           />
         </>
       )}
