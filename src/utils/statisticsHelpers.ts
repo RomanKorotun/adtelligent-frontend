@@ -6,9 +6,10 @@ export const downloadStatisticsFile = async (
   filters: Record<string, string[]>
 ) => {
   try {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const response = await axiosInstance.post(
       "/statExport",
-      { date, filters, format },
+      { date, filters, format, timezone },
       { responseType: "blob" }
     );
 
