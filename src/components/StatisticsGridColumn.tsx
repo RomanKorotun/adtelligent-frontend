@@ -1,6 +1,4 @@
 import React from "react";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import type { Column, Row } from "@shared-types/statistics";
 import { renderValue } from "@utils/formatStatisticsValue";
 
@@ -19,9 +17,6 @@ export const StatisticsGridColumn: React.FC<Props> = ({
   setColumnWidths,
   data,
 }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: column.key });
-
   const isFirst = index === 0;
 
   const startResize = (e: React.MouseEvent) => {
@@ -48,10 +43,7 @@ export const StatisticsGridColumn: React.FC<Props> = ({
 
   return (
     <div
-      ref={setNodeRef}
       style={{
-        transform: CSS.Transform.toString(transform),
-        transition,
         width: columnWidths[index],
         minWidth: columnWidths[index],
       }}
@@ -60,9 +52,7 @@ export const StatisticsGridColumn: React.FC<Props> = ({
       }`}
     >
       <div
-        {...attributes}
-        {...listeners}
-        className={`px-2 py-2 text-xs font-semibold text-center border-b border-gray-300 bg-gray-200 cursor-pointer sticky top-0 ${
+        className={`px-2 py-2 text-xs font-semibold text-center border-b border-gray-300 bg-gray-200 cursor-default sticky top-0 ${
           isFirst ? "z-40" : "z-10"
         }`}
       >
