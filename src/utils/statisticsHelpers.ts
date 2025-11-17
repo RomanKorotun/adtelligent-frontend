@@ -1,5 +1,10 @@
 import axiosInstance from "@lib/axios";
 
+const MIME_TYPES = {
+  csv: "text/csv",
+  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+};
+
 export const downloadStatisticsFile = async (
   format: "csv" | "xlsx",
   date: string,
@@ -13,22 +18,13 @@ export const downloadStatisticsFile = async (
       { responseType: "blob" }
     );
 
-    const blob = new Blob([response.data], {
-      type:
-        format === "csv"
-          ? "text/csv"
-          : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    });
-
-    const filename = `statistics_${date}.${format === "csv" ? "csv" : "xlsx"}`;
-    const url = window.URL.createObjectURL(blob);
+    const blob = new Blob([response.data], { type: MIME_TYPES[format] });
+    const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
+    a.download = `statistics_${date}.${format}`;
     a.click();
-    a.remove();
-    window.URL.revokeObjectURL(url);
+    URL.revokeObjectURL(url);
   } catch (error) {
     console.error("Failed to download file", error);
   }
