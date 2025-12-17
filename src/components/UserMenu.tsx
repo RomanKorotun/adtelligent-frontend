@@ -33,12 +33,12 @@ export const UserMenu = () => {
         </button>
       )}
 
-      <button
+      {/* <button
         onClick={() => navigate("/statistics")}
         className="px-3 py-1 rounded-md bg-primary text-light text-sm font-medium hover:bg-secondary transition-colors shadow-cardHover"
       >
         Статистика
-      </button>
+      </button> */}
 
       {userName && (
         <span className="text-sm text-light">Welcome, {userName}</span>
